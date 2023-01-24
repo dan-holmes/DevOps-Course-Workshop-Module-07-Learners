@@ -1,5 +1,5 @@
 pipeline {
-    agent { label 'ubuntu-latest' }
+    agent any
     // triggers { gitlab(hooks: true) }
     stages {
         stage('Checkout') {
