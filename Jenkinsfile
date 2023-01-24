@@ -7,7 +7,7 @@ pipeline {
         stage('Dotnet Build & Test') {
             agent {
                 docker { 
-                    image 'mcr.microsoft.com/dotnet'
+                    image 'mcr.microsoft.com/dotnet/sdk:7.0'
                 }
             }
             steps {
