@@ -1,49 +1,21 @@
 pipeline {
-    agent any
-    // triggers { gitlab(hooks: true) }
+    agent none
     stages {
-        stage('Checkout') {
-            steps {
-                git url: 'https://github.com/dan-holmes/DevOps-Course-Workshop-Module-07-Learners.git', branch: 'main'
-            }
-        }
-        stage('Build C#') {
+        stage('Dotnet Build & Test') {
+            agent { label: 'dotnet'}
             steps {
                 sh 'dotnet build'
-            }
-        }
-        stage('Install Javascript Dependencies') {
-            steps {
-                sh 'cd ./DotnetTemplate.Web && npm install'
-            }
-        }
-        stage('Build Javascript') {
-            steps {
-                sh 'cd ./DotnetTemplate.Web && npm run build'
-            }
-        }
-        stage('Dotnet tests') {
-            steps {
                 sh 'dotnet test'
             }
         }
-        stage('Typescript tests') {
+        stage('Javascript Build & Test') {
+            agent node:17-bullseye
             steps {
+                sh 'cd ./DotnetTemplate.Web && npm install'
+                sh 'cd ./DotnetTemplate.Web && npm run build'
                 sh 'cd ./DotnetTemplate.Web && npm t'
-            }
-        }
-        stage('Lint') {
-            steps {
                 sh 'cd ./DotnetTemplate.Web && npm run lint'
             }
-        }
-    }
-    post {
-        success {
-            slackSend color: 'good', message: 'Successfully ran pipeline'
-        }
-        failure {
-            slackSend color: 'danger', message: 'Failed to run pipeline'
         }
     }
 }
