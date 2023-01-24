@@ -9,7 +9,7 @@ pipeline {
             }
         }
         stage('Javascript Build & Test') {
-            agent node:17-bullseye
+            agent { label: 'node:17-bullseye' }
             steps {
                 sh 'cd ./DotnetTemplate.Web && npm install'
                 sh 'cd ./DotnetTemplate.Web && npm run build'
