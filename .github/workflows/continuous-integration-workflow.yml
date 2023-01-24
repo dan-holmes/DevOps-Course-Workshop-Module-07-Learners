@@ -25,3 +25,12 @@ jobs:
 
       - name: lint
         run: cd ./DotnetTemplate.Web && npm run lint
+
+      - name: send success slack message
+        run: |
+          curl -X POST -H 'Content-type: application/json' --data '{"text": "Successfully ran pipeline"}' ${{ secrets.SLACK_WEBHOOK_URL }}
+
+      - name: send failure slack message
+        if: ${{ failure() }}
+        run: |
+          curl -X POST -H 'Content-type: application/json' --data '{"text": "Failed to run pipeline"}' ${{ secrets.SLACK_WEBHOOK_URL }}
