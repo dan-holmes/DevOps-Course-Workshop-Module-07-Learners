@@ -9,6 +9,6 @@ describe('Example', () => {
     functionOne();
 
     // Then
-    expect(1).toEqual(one);
+    expect(5).toEqual(one);
   });
 });
