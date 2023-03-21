@@ -71,4 +71,4 @@ jobs:
     steps:
       - name: Refresh azure deployment using webhook
         run: |
-          curl -dH --fail -X POST '${{ secrets.AZURE_WEBHOOK_URL }}'
+          curl -dH --fail -X POST '${{ secrets.AZURE_WEBHOOK }}'
