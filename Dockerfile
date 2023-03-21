@@ -11,4 +11,4 @@ WORKDIR /DotnetTemplate.Web
 RUN npm install
 RUN npm run build
 
-ENTRYPOINT ["dotnet run"]
+ENTRYPOINT ["dotnet", "run", "--project", "/DotnetTemplate.Web/DotnetTemplate.Web.csproj"]
