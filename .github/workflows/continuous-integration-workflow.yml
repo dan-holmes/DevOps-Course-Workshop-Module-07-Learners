@@ -63,3 +63,12 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+  deploy:
+    name: Refresh azure deployment using webhook
+    runs-on: ubuntu-latest
+    needs: push_to_registry
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: Refresh azure deployment using webhook
+        run: |
+          curl -dH --fail -X POST '${{ secrets.AZURE_WEBHOOK_URL }}'
